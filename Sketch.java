@@ -3,6 +3,8 @@ import processing.core.PApplet;
 public class Sketch extends PApplet {
 
   boolean sunMouse = false;
+  char screenLetter = ' ';
+
 
   /**
    * Called once at the beginning of execution, put your size all in this method
@@ -18,6 +20,7 @@ public class Sketch extends PApplet {
    */
   public void setup() {
     background(173, 216, 230);
+    textSize(30);
   }
 
   /**
@@ -105,7 +108,11 @@ public class Sketch extends PApplet {
       rect(0, 300, 400, 100);
     }
 
-    
+     // Text on screen
+    fill(0); // Black
+    text(screenLetter, 5, height/2);
+
+
   }
 
   
@@ -153,4 +160,15 @@ public class Sketch extends PApplet {
   }
 
   
+  public void mouseWheel() {
+    System.out.println("mouseWheel");
+    background(0);
+  }
+
+  public void keyTyped() {
+    System.out.println("keyTyped");
+    screenLetter += key;
+  }
+
+
 }
