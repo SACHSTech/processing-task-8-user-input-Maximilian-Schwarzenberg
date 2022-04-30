@@ -4,6 +4,8 @@ public class Sketch extends PApplet {
 
   boolean sunMouse = false;
   char screenLetter = ' ';
+  int sunX = 100;
+  int sunY = 50;
 
 
   /**
@@ -43,34 +45,56 @@ public class Sketch extends PApplet {
 
     
      // sun mouse
-    if (mouseX >= 50 && mouseY >= 0 && mouseX <= 150 && mouseY <= 100 && sunMouse == false) 
+    if (mouseX >= sunX-25 && mouseY >= sunY-25 && mouseX <= sunX+25 && mouseY <= sunY+25 && sunMouse == false) 
     {
       if (mousePressed == true) {
         sunMouse = true;
-        System.out.println("sunMouse " + sunMouse);
+        //System.out.println("sunMouse " + sunMouse);
         mousePressed = false;
       }
       else {}
     }
     else {}
+
+     // Shift the sun
+    if (keyPressed) {
+      if (keyCode == UP) {
+        sunY--;
+      }
+      else if (keyCode == DOWN) {
+        sunY++;
+      }
+      else if (keyCode == LEFT){
+        sunX--;
+      }
+      else if (keyCode == RIGHT){
+       sunX++; 
+      }
+    }
+
     
     
      // sun mouse reversion
     if (sunMouse == true && mousePressed == true)
     {
       sunMouse = false;
-      System.out.println("sunMouse " + sunMouse);
+      //System.out.println("sunMouse " + sunMouse);
     }
 
     
      // sun method
     if (sunMouse == false) {
-      sun(100, 50, 255, 233, 0);
+      sun(sunX, sunY, 255, 233, 0);
     }
     else if (sunMouse == true) {
       sun(mouseX, mouseY, 255, 233, 0);
     }
 
+    if (sunX <= 0 || sunY <= 0 || sunX >= 0+width || sunY >= 0+height)
+    {
+      sunX = 100;
+      sunY = 50;
+    }
     
      // house method 1
     house(100, 50, 400);
@@ -80,7 +104,7 @@ public class Sketch extends PApplet {
     {
       if (key == ' ')
       {
-        System.out.println("keyPressed");
+        //System.out.println("keyPressed");
         if (sunMouse == false) {
            // Rectangle for grass
           fill(218, 160, 109); // Brown
@@ -99,6 +123,21 @@ public class Sketch extends PApplet {
         else if (mouseY > 300 && sunMouse == true) {
           background(218, 112, 214);
         }
+      }
+      
+    }
+    else {
+       // Rectangle for grass
+      fill(86, 125, 70); // Green
+      rect(0, 300, 400, 100);
+    }
+
+    if (keyPressed) 
+    {
+      if (key == 'm')
+      {
+        //System.out.println("keyPressed");
+        sun(width/2, height/2, 255, 233, 0);
       }
       
     }
@@ -161,12 +200,12 @@ public class Sketch extends PApplet {
 
   
   public void mouseWheel() {
-    System.out.println("mouseWheel");
+    //System.out.println("mouseWheel");
     background(0);
   }
 
   public void keyTyped() {
-    System.out.println("keyTyped");
+    //System.out.println("keyTyped");
     screenLetter += key;
   }
 
